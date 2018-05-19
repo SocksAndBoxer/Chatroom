@@ -10,8 +10,7 @@ class App extends React.Component {
     user2: 'René',
     value1: '',
     value2: '',
-    messages1: [],
-    messages2: [],
+    messages: [],
   };
 
   // state = {
@@ -26,15 +25,28 @@ class App extends React.Component {
 
   handleSubmit = (value, id) => (evt) => {
     evt.preventDefault();
+    const { user1, user2 } = this.state;
     if (id === 'value1') {
       this.setState({
-        messages1: [...this.state.messages1, value],
+        messages: [
+          ...this.state.messages,
+          {
+            user: user1,
+            value,
+          },
+        ],
         value1: '',
       });
     }
     else {
       this.setState({
-        messages2: [...this.state.messages2, value],
+        messages: [
+          ...this.state.messages,
+          {
+            user: user2,
+            value,
+          },
+        ],
         value2: '',
       });
     }
@@ -43,17 +55,15 @@ class App extends React.Component {
   render() {
     const {
       user1,
-      user2,
       value1,
       value2,
-      messages1,
-      messages2,
+      messages,
     } = this.state;
     return (
       <div id="app">
         <div id="chatbox-1">
           <Settings />
-          <Messages user={user1} messages={messages1} />
+          <Messages user1={user1} messages={messages} />
           <Form
             handleChange={this.handleChange}
             id="value1"
@@ -63,7 +73,7 @@ class App extends React.Component {
         </div>
         <div id="chatbox-2">
           <Settings />
-          <Messages user={user2} messages={messages2} />
+          <Messages user1={user1} messages={messages} />
           <Form
             handleChange={this.handleChange}
             id="value2"

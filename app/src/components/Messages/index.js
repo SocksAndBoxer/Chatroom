@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Message = ({ user, messages }) => (
+const Message = ({ user1, messages }) => (
   <div id="messages">
     {messages.map(message => (
-      <div key={message} className="message">
-        <p className="user">{user}</p>
-        <p className="message">{message}</p>
+      <div key={message.value} className="message" id={message.user === user1 ? 'user1' : 'user2'}>
+        <p className="user">{message.user}</p>
+        <p className="message">{message.value}</p>
       </div>
     ))
   }
@@ -14,8 +14,8 @@ const Message = ({ user, messages }) => (
 );
 
 Message.propTypes = {
-  user: PropTypes.string.isRequired,
-  messages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  user1: PropTypes.string.isRequired,
+  messages: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
 export default Message;
